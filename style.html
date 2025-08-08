@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cheat Musk - Profile Card</title>
+  <style>
+    /* ========= Reset & base styles ========= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+    }
+
+    /* ======= Profile Card Container ======= */
+    .card {
+      background: white;
+      width: 360px;
+      max-width: 100%;
+      border-radius: 20px;
+      box-shadow:
+        0 10px 15px rgba(0, 0, 0, 0.05),
+        0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+      padding-bottom: 40px;
+      transition: box-shadow 0.3s;
+    }
+
+    .card:hover {
+      box-shadow:
+        0 20px 25px rgba(0, 0, 0, 0.1),
+        0 10px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    /* ====== Profile Header ====== */
+    .profile-header {
+      background: linear-gradient(135deg, #FF4D4D 0%, #FF0000 100%);
+      height: 180px;
+      position: relative;
+    }
+
+    .profile-image {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 5px solid white;
+      position: absolute;
+      bottom: -65px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+      background: white;
+      overflow: hidden;
+    }
+
+    .profile-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ====== Profile Name & Role ====== */
+    .profile-info {
+      margin-top: 80px;
+      text-align: center;
+      padding: 0 25px;
+    }
+
+    .profile-info h1 {
+      font-size: 26px;
+      color: #FF4D4D;
+      letter-spacing: 1.5px;
+      margin-bottom: 5px;
+      position: relative;
+      animation: fadeInDown 1s ease forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation-delay: 0.3s;
+    }
+
+    .profile-info h1::after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: #FF4D4D;
+      margin: 6px auto 0;
+      border-radius: 2px;
+    }
+
+    .profile-info p.role {
+      font-size: 16px;
+      color: #777;
+      letter-spacing: 0.05em;
+      margin-top: 10px;
+      font-weight: 600;
+      animation: fadeInDown 1s ease forwards;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation-delay: 0.6s;
+    }
+
+    /* ====== About Me Section ====== */
+    .about-me {
+      padding: 25px;
+      text-align: left;
+      color: #444;
+      font-size: 15px;
+      line-height: 1.6;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation-delay: 0.9s;
+    }
+
+    .about-me h2 {
+      font-size: 22px;
+      color: #FF4D4D;
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    /* ====== Skills Section ====== */
+    .skills {
+      padding: 25px;
+      border-top: 1px solid #eee;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation-delay: 1.2s;
+    }
+
+    .skills h2 {
+      font-size: 22px;
+      color: #FF4D4D;
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    .skill {
+      margin-bottom: 20px;
+    }
+
+    .skill-name {
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #555;
+      letter-spacing: 0.03em;
+    }
+
+    .skill-bar {
+      background: #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      height: 16px;
+    }
+
+    .skill-level {
+      height: 16px;
+      background: #FF4D4D;
+      width: 0;
+      border-radius: 12px;
+      animation-fill-mode: forwards;
+      animation-timing-function: ease-in-out;
+      animation-name: loadSkill;
+    }
+
+    /* Skill animations with different delays */
+    .skill-level.html { animation-duration: 1.5s; animation-delay: 1.3s; width: 90%; }
+    .skill-level.css { animation-duration: 1.5s; animation-delay: 1.5s; width: 85%; }
+    .skill-level.js { animation-duration: 1.5s; animation-delay: 1.7s; width: 70%; }
+    .skill-level.python { animation-duration: 1.5s; animation-delay: 1.9s; width: 80%; }
+    .skill-level.photoshop { animation-duration: 1.5s; animation-delay: 2.1s; width: 60%; }
+
+    /* ====== Contact Section ====== */
+    .contact {
+      padding: 25px;
+      border-top: 1px solid #eee;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation-delay: 1.5s;
+    }
+
+    .contact h2 {
+      font-size: 22px;
+      color: #FF4D4D;
+      margin-bottom: 20px;
+      letter-spacing: 0.04em;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      color: #555;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      transition: color 0.3s;
+    }
+
+    .contact-item:hover {
+      color: #FF4D4D;
+    }
+
+    .contact-icon {
+      font-size: 20px;
+      margin-right: 12px;
+      width: 25px;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* ====== Social Links ====== */
+    .social {
+      padding: 0 25px;
+      margin-top: 15px;
+      text-align: center;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      animation-delay: 1.7s;
+    }
+
+    .social a {
+      font-size: 24px;
+      color: #FF4D4D;
+      margin: 0 12px;
+      display: inline-block;
+      transition: color 0.3s;
+      user-select: none;
+    }
+
+    .social a:hover {
+      color: #d10000;
+      transform: scale(1.15);
+    }
+
+    /* ====== Animations ====== */
+    @keyframes fadeInDown {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes loadSkill {
+      from { width: 0; }
+      to { width: var(--skill-width); }
+    }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 400px) {
+      .card {
+        width: 90vw;
+      }
+
+      .profile-image {
+        width: 110px;
+        height: 110px;
+        bottom: -55px;
+      }
+    }
+
+    /* ====== Dark Mode (toggle by adding 'dark' class to body) ====== */
+    body.dark {
+      background: #1e1e2f;
+      color: #ccc;
+    }
+
+    body.dark .card {
+      background: #292940;
+      box-shadow:
+        0 10px 15px rgba(0, 0, 0, 0.8),
+        0 4px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark .profile-header {
+      background: linear-gradient(135deg, #ff5555 0%, #cc2222 100%);
+    }
+
+    body.dark .profile-info h1,
+    body.dark .profile-info p.role,
+    body.dark .about-me h2,
+    body.dark .skills h2,
+    body.dark .contact h2 {
+      color: #ff9999;
+    }
+
+    body.dark .about-me {
+      background: #3a3a56;
+      color: #ddd;
+    }
+
+    body.dark .skill-bar {
+      background: #444466;
+    }
+
+    body.dark .skill-level {
+      background: #ff6666;
+    }
+
+    body.dark .contact-item {
+      color: #bbb;
+    }
+
+    body.dark .contact-item:hover {
+      color: #ff6666;
+    }
+
+    body.dark .social a {
+      color: #ff6666;
+    }
+
+    body.dark .social a:hover {
+      color: #ff4444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- Profile Header with Image -->
+    <div class="profile-header">
+      <div class="profile-image">
+        <img src="https://i.imgur.com/2cOaJ.png" alt="Cheat Musk" />
+      </div>
+    </div>
+
+    <!-- Name and Role -->
+    <div class="profile-info">
+      <h1>Cheat Musk</h1>
+      <p class="role">Student & Future Billionaire</p>
+    </div>
+
+    <!-- About Me -->
+    <section class="about-me">
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm Cheat Musk, a passionate student who loves coding, gaming, and exploring new technologies.
+        I enjoy creating clean and modern web designs and dreaming about building my own startup someday.
+      </p>
+    </section>
+
+    <!-- Skills -->
+    <section class="skills">
+      <h2>Skills</h2>
+
+      <div class="skill">
+        <div class="skill-name">HTML</div>
+        <div class="skill-bar">
+          <div class="skill-level html"></div>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-name">CSS</div>
+        <div class="skill-bar">
+          <div class="skill-level css"></div>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-bar">
+          <div class="skill-level js"></div>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-name">Python</div>
+        <div class="skill-bar">
+          <div class="skill-level python"></div>
+        </div>
+      </div>
+
+      <div class="skill">
+        <div class="skill-name">Photoshop</div>
+        <div class="skill-bar">
+          <div class="skill-level photoshop"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section class="contact">
+      <h2>Contact</h2>
+
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <a href="mailto:cheat@example.com">cheat@example.com</a>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <a href="tel:+85512345678">+855 123 456 78</a>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span>Phnom Penh, Cambodia</span>
+      </div>
+    </section>
+
+    <!-- Social Links -->
+    <div class="social">
+      <a href="#" title="Facebook">🔵</a>
+      <a href="#" title="Twitter">🐦</a>
+      <a href="#" title="Instagram">📸</a>
+      <a href="#" title="LinkedIn">🔗</a>
+    </div>
+
+  </div>
+
+</body>
+</html>
